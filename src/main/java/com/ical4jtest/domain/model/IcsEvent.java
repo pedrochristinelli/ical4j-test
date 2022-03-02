@@ -20,6 +20,9 @@ public class IcsEvent {
     @ApiModelProperty(name = "date", value = "The following format is used: yyyy-MM-dd", example = "2020-01-20")
     private Date date;
 
+    @ApiModelProperty(value = "Person who will receive the email", example = "")
+    private String emailTo;
+
     public IcsEvent() {
     }
 
@@ -53,5 +56,13 @@ public class IcsEvent {
 
     public void setDate(Date date) {
         this.date = date;
+    }
+
+    public String getEmailTo() {
+        return emailTo;
+    }
+
+    public void setEmailTo(String emailTo) {
+        this.emailTo = emailTo;
     }
 }

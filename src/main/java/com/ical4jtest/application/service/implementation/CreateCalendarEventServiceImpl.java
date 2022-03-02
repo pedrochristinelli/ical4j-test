@@ -6,6 +6,7 @@ import net.fortuna.ical4j.data.CalendarOutputter;
 import net.fortuna.ical4j.model.*;
 import net.fortuna.ical4j.model.component.VEvent;
 import net.fortuna.ical4j.model.property.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.FileOutputStream;
@@ -17,7 +18,11 @@ import java.util.Date;
 
 @Service
 public class CreateCalendarEventServiceImpl implements CreateCalendarEventService {
-    public CreateCalendarEventServiceImpl() {
+    private SendEmailServiceImpl sendEmailService;
+
+    @Autowired
+    public CreateCalendarEventServiceImpl(SendEmailServiceImpl sendEmailService) {
+        this.sendEmailService = sendEmailService;
     }
 
     public String createEventByDate(IcsEvent icsEvent) {
@@ -50,6 +55,7 @@ public class CreateCalendarEventServiceImpl implements CreateCalendarEventServic
             }
         }
 
+        sendEmailService.sendEmailWithAttachment(icsEvent.getEmailTo());
         return "there u go mate:/n" + icsExport ;
     }
 
